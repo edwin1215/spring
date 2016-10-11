@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+	<Appenders>
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="[%-5p %d{yyyy-MM-dd HH:mm:ss,SSS}] [THREAD:%t] %c(%L):%m%n" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<Root level="DEBUG">
+			<AppenderRef ref="CONSOLE" />
+		</Root>
+		<logger name="com.busap.vcs" level="DEBUG" additivity="false">
+			<AppenderRef ref="CONSOLE" />
+		</logger>
+		<logger name="org.log" level="DEBUG" additivity="false">
+			<AppenderRef ref="CONSOLE" />
+		</logger>
+		<logger name="org.apache" level="WARN" additivity="false">
+			<AppenderRef ref="CONSOLE" />
+		</logger>
+		<logger name="org.springframework" level="WARN" additivity="false">
+			<AppenderRef ref="CONSOLE" />
+		</logger>
+	</Loggers>
+</Configuration>

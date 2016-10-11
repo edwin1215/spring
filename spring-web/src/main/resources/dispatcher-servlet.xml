@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+		
+	<!-- 启用Spring基于annotation的DI,使用户可以在Spring MVC中使用Spring注解功能 -->
+	<context:annotation-config />
+	<!-- 扩充了注解驱动,可以将请求参数绑定到控制器参数 -->
+	<mvc:annotation-driven />
+	<!-- servlet在找不到的时候会去找静态的内容 -->
+	<mvc:default-servlet-handler/>
+	
+	<context:component-scan base-package="com.edwin.spring.web.controller" />
+	
+	<bean id="utf8NioCharset" class="java.nio.charset.Charset"
+          factory-method="forName">
+        <constructor-arg index="0" value="UTF-8"/>
+    </bean>
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="jspViewResolver">
+        <property name="prefix" value="" />
+        <property name="suffix" value=".jsp" />
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+    </bean>
+</beans>
