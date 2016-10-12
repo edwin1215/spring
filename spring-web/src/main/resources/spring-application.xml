@@ -14,19 +14,30 @@
 	    http://www.springframework.org/schema/cache
 	    http://www.springframework.org/schema/cache/spring-cache-4.0.xsd"
 	    default-lazy-init="true">
-	<bean id="car" class="com.edwin.spring.ioc.Car" init-method="myInit" destroy-method="myDestroy">
+	<bean id="car" class="com.edwin.spring.web.ioc.Car" init-method="myInit" destroy-method="myDestroy">
 		<property name="brand" value="宝马" />
 		<property name="maxSpeed" value="200" />
 	</bean>
 	
-	<bean id="magicBoss" class="com.edwin.spring.ioc.methodDI.lookup.MagicBoss">
+	<bean id="magicBoss" class="com.edwin.spring.web.ioc.methodDI.lookup.MagicBoss">
 		<lookup-method name="getCar" bean="car"/>
 	</bean>
 	
-	<bean id="boss1" class="com.edwin.spring.ioc.methodDI.replace.Boss1">
+	<bean id="boss1" class="com.edwin.spring.web.ioc.methodDI.replace.Boss1">
 		<replaced-method name="getCar" replacer="boss2"/>
 	</bean>
-	<bean id="boss2" class="com.edwin.spring.ioc.methodDI.replace.Boss2" />
+	<bean id="boss2" class="com.edwin.spring.web.ioc.methodDI.replace.Boss2" />
+	
+	<bean id="nativeWaiter" class="com.edwin.spring.web.aop.advice.NativeWaiter" />
+	<bean id="serverBeforeAdvice" class="com.edwin.spring.web.aop.advice.before.ServerBeforeAdvice" />
+	<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="nativeWaiter" />
+		<property name="interceptorNames" value="serverBeforeAdvice" />
+		<!-- 强制使用cglib -->
+		<property name="optimize" value="true"/>
+		<!-- 代理所要实现的接口 -->
+		<!-- <property name="proxyInterfaces" value=""/> -->
+	</bean>
 	
 	<context:component-scan base-package="com.edwin.spring.web.controller" />
 	<mvc:annotation-driven />

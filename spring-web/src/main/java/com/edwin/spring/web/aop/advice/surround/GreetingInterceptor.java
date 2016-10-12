@@ -3,6 +3,11 @@ package com.edwin.spring.web.aop.advice.surround;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
+/**
+ * 
+ * @author caojunming
+ *
+ */
 public class GreetingInterceptor implements MethodInterceptor {
 
 	@Override

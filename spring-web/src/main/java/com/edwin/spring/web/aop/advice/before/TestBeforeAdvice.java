@@ -2,6 +2,8 @@ package com.edwin.spring.web.aop.advice.before;
 
 import org.springframework.aop.BeforeAdvice;
 import org.springframework.aop.framework.ProxyFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.edwin.spring.web.aop.advice.NativeWaiter;
 import com.edwin.spring.web.aop.advice.Waiter;
@@ -14,7 +16,20 @@ import com.edwin.spring.web.aop.advice.Waiter;
  */
 public class TestBeforeAdvice {
 
+	private static final ApplicationContext AC;
+
+	static {
+		AC = new ClassPathXmlApplicationContext("spring-application.xml");
+	}
+
 	public static void main(String[] args) {
+		// customInvoke();
+		Waiter waiter = (Waiter) AC.getBean("proxy");
+		waiter.greetTo("John");
+		waiter.serverTo("jackson");
+	}
+
+	public static void customInvoke() {
 		Waiter waiter = new NativeWaiter();
 		BeforeAdvice advice = new ServerBeforeAdvice();
 		// spring提供的代理工厂
