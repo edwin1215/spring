@@ -14,7 +14,7 @@
 	    http://www.springframework.org/schema/cache
 	    http://www.springframework.org/schema/cache/spring-cache-4.0.xsd"
 	    default-lazy-init="true">
-	<!-- <bean id="car" class="com.edwin.spring.ioc.Car" init-method="myInit" destroy-method="myDestroy">
+	<bean id="car" class="com.edwin.spring.ioc.Car" init-method="myInit" destroy-method="myDestroy">
 		<property name="brand" value="宝马" />
 		<property name="maxSpeed" value="200" />
 	</bean>
@@ -26,7 +26,7 @@
 	<bean id="boss1" class="com.edwin.spring.ioc.methodDI.replace.Boss1">
 		<replaced-method name="getCar" replacer="boss2"/>
 	</bean>
-	<bean id="boss2" class="com.edwin.spring.ioc.methodDI.replace.Boss2" /> -->
+	<bean id="boss2" class="com.edwin.spring.ioc.methodDI.replace.Boss2" />
 	
 	<context:component-scan base-package="com.edwin.spring.web.controller" />
 	<mvc:annotation-driven />
