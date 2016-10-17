@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.edwin</groupId>
-    <artifactId>spring</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>spring-web</artifactId>
-  <packaging>war</packaging>
-  <name>spring-web Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  <properties>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.edwin</groupId>
+		<artifactId>spring</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>spring-web</artifactId>
+	<packaging>war</packaging>
+	<name>spring-web Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.slf4j>2.3</version.slf4j>
 		<spring.version>4.0.7.RELEASE</spring.version>
@@ -123,7 +123,7 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.1.40</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.fasterxml</groupId>
 			<artifactId>jackson-module-json-org</artifactId>
@@ -150,11 +150,11 @@
 			<artifactId>jackson-module-jaxb-annotations</artifactId>
 			<version>${version.jackson}</version>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>redis.clients</groupId>
-		    <artifactId>jedis</artifactId>
-		    <version>${redis.version}</version>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${redis.version}</version>
 		</dependency>
 	</dependencies>
 	<build>

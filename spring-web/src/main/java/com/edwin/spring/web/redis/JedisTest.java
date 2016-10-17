@@ -9,31 +9,21 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.Response;
 
+import com.edwin.spring.web.utils.BicycleConstants;
+
 public class JedisTest {
 
 	public final static Jedis JEDIS;
 
 	static {
-		JEDIS = new Jedis("192.168.108.156", 6379);
+		JEDIS = new Jedis("172.17.16.190", 6379);
+		JEDIS.auth("n6vHtRMsdAH6EBiY");
 	}
 
 	public static void main(String[] args) {
-		// jedis.set("num", "12");
-		// JEDIS.incr("num");
-		// System.out.println(JEDIS.get("num"));
 
-		// zadd();
-		System.out.println(JEDIS.zcard("myset"));
-		System.out.println(JEDIS.zrange("myset", 0, -1));
-		System.out.println(JEDIS.zrevrange("myset", 0, -1));
-		System.out.println(JEDIS.zrevrank("myset", "dd"));
-		System.out.println("===================");
-		List<Response<Long>> list = plZRank();
-		for (Response<Long> o : list) {
-			System.out.println(o.get());
-		}
-		System.out.println("===================");
-		tests();
+		System.out.println(JEDIS.zrange(
+				BicycleConstants.ANCHOR_DAY_RANKING_ZSET, 0, -1));
 	}
 
 	public static List<Response<Long>> plZRank() {

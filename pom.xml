@@ -10,5 +10,6 @@
 	<description>spring study</description>
 	<modules>
 		<module>spring-web</module>
+		<module>spring-server</module>
 	</modules>
 </project>
