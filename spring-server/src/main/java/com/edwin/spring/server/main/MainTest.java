@@ -1,29 +1,55 @@
 package com.edwin.spring.server.main;
 
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.crypto.Cipher;
+
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.Response;
-
-import com.edwin.spring.server.util.BicycleConstants;
 
 public class MainTest {
 
 	public final static Jedis JEDIS;
 
 	static {
-		JEDIS = new Jedis("172.17.16.190", 6379);
-		JEDIS.auth("n6vHtRMsdAH6EBiY");
+		JEDIS = new Jedis("192.168.108.151", 6379);
+		// JEDIS.auth("n6vHtRMsdAH6EBiY");
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NoSuchAlgorithmException {
 
-		System.out.println(JEDIS.zrange(
-				BicycleConstants.ANCHOR_DAY_RANKING_ZSET, 0, -1));
+		KeyPairGenerator instance = KeyPairGenerator.getInstance("RSA");
+		instance.initialize(1024);
+		KeyPair keyPair = instance.generateKeyPair();
+		RSAPrivateKey priKey = (RSAPrivateKey) keyPair.getPrivate();
+		RSAPublicKey pubKey = (RSAPublicKey) keyPair.getPublic();
+		System.out.println(priKey);
+		System.out.println(pubKey);
+		String encryptedStr = "sdfds23fd23";
+		byte[] decrypt = decrypt(priKey, encryptedStr.getBytes());
+		System.out.println(new String(decrypt));
+	}
+
+	protected static byte[] decrypt(RSAPrivateKey privateKey, byte[] obj) {
+		if (privateKey != null) {
+			try {
+				Cipher cipher = Cipher.getInstance("RSA");
+				cipher.init(Cipher.DECRYPT_MODE, privateKey);
+				return cipher.doFinal(obj);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 	public static List<Response<Long>> plZRank() {

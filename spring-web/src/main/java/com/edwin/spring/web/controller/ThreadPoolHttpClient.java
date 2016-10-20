@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.URI;
 import java.rmi.UnknownHostException;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.net.ssl.SSLException;
@@ -13,10 +14,12 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
+import org.apache.http.NameValuePair;
 import org.apache.http.NoHttpResponseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -208,11 +211,14 @@ public class ThreadPoolHttpClient {
 	 * @param uri
 	 * @return
 	 */
-	public ResponseEntity<String> post(URI uri) {
+	public ResponseEntity<String> post(URI uri, List<NameValuePair> params) {
 		long start = System.currentTimeMillis();
 		ResponseEntity<String> responseEntity = null;
 		try {
 			HttpPost httpPost = new HttpPost(uri);
+			if (params != null && !params.isEmpty()) {
+				httpPost.setEntity(new UrlEncodedFormEntity(params));
+			}
 			config(httpPost);
 			// 启动线程抓取
 			CloseableHttpResponse response = null;
