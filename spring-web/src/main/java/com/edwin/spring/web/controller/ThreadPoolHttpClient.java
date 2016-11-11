@@ -37,6 +37,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.edwin.spring.web.utils.CookieThreadLocal;
 import com.edwin.spring.web.utils.ResponseEntity;
 
 /**
@@ -188,6 +189,7 @@ public class ThreadPoolHttpClient {
 			CloseableHttpResponse response = null;
 			LOGGER.info("GET dispatcher url: {}", url);
 			response = httpClient.execute(httpget, HttpClientContext.create());
+			CookieThreadLocal.set(response.getHeaders("Set-Cookie"));
 			HttpEntity entity = response.getEntity();
 			String responseStr = EntityUtils.toString(entity, UNICODE_TYPE);
 			responseEntity = ResponseEntity.buildSuccess(responseStr);
@@ -223,6 +225,7 @@ public class ThreadPoolHttpClient {
 			// 启动线程抓取
 			CloseableHttpResponse response = null;
 			response = httpClient.execute(httpPost, HttpClientContext.create());
+			CookieThreadLocal.set(response.getHeaders("Set-Cookie"));
 			HttpEntity entity = response.getEntity();
 			String responseStr = EntityUtils.toString(entity, UNICODE_TYPE);
 			responseEntity = ResponseEntity.buildSuccess(responseStr);
