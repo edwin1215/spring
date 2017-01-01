@@ -2,10 +2,14 @@ package com.edwin.spring.web.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +43,7 @@ public class DispatcherService {
 					.toString());
 		} else if (clientInfo.getRequestType().toUpperCase().equals("POST")) {
 			responseEntity = threadPoolHttpClient.post(new URI(clientInfo
-					.getUrl().toString()));
+					.getUrl().toString()), buildPostParams(clientInfo));
 		} else {
 			LOGGER.error("request type is error:{}",
 					clientInfo.getRequestType());
@@ -64,6 +68,20 @@ public class DispatcherService {
 			int index = clientInfo.getUrl().indexOf("&");
 			clientInfo.getUrl().replace(index, index + 1, "?");
 		}
+	}
+
+	private List<NameValuePair> buildPostParams(ClientInfo clientInfo) {
+		if (clientInfo == null || clientInfo.getParams() == null) {
+			return null;
+		}
+		List<NameValuePair> result = new ArrayList<NameValuePair>();
+		for (String key : clientInfo.getParams().keySet()) {
+			if (StringUtils.isNotBlank(clientInfo.getParams().get(key))) {
+				result.add(new BasicNameValuePair(key, clientInfo.getParams()
+						.get(key)));
+			}
+		}
+		return result;
 	}
 
 	public static void main(String[] args) {
