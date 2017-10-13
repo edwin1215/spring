@@ -43,7 +43,10 @@ public class OOMTest {
 	 * -Xss2m
 	 */
 	public void stackOom() {
+		int counter = 1;
 		while (true) {
+			counter++;
+			System.out.println(counter);
 			new Thread(new Runnable() {
 
 				@Override
