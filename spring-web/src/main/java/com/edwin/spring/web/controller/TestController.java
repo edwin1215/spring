@@ -1,5 +1,9 @@
 package com.edwin.spring.web.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.security.MessageDigest;
 import java.util.HashMap;
@@ -13,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -36,7 +41,8 @@ public class TestController {
 	// private final static String URL = "http://60.205.132.21:10002/";
 	private final static String URL = "http://localhost/";
 
-	// private static String priKey = "MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBALxM270FGnSDNP/z2+naSoHFyo8V9l5DzyZiRO/XxkcfIgN0EiSNcvSz4qNn8dq/4/OX659ditA4lWxUsSdqZG3iG0ofigMDYBChkHEvq0sprNjj/EpNiZrz4novUoOS5BlSpUeLzMLxTBByw8vU5FJITNfE/I/IzFC801KndA2JAgMBAAECgYEAn61xfYXRXFJTZGVP7KwfGJM45UOTi3ZnOL6GhPjufCtLdbA9HmAQxq+wli80KfMlg9EljxwM9eu10oqzO6B+Djga0gbaHxJNWSZhMOGzp40KvyG9Q0GsVPDBs3kR01axssap1OdccMwdhrZcDb4hioEjR+bn7LB4ebKmvPLOj10CQQDcWyD5ltdSv8kIk2dHuKzMt6V0S1A63Nch+xl6hZ/PU/WnZoOnkL4dfr7pnTXa+0AUmfUBUvm/5q++k/ThXXhjAkEA2sJPsi1Gp16zeKQL86eaOAEGVAvruEDcsH2gu0MBO7KNLmGyiwHTXISjw9BsQom9LcC/CUscZYtkwT0PcuiIIwJBANQJoJ5rJsGKqNDmvnBGZYkMglp4ijhJ/33EWQ0L/e6MNQsjWzZn0nkhWGYGECeqs0vfpeHjTU36lkxFpVMjFU8CQQC/KFTj6dR3pLVHknIvNCH7FkolX1VX6LXwM5cki+Sj+d6MzSprdejwS6efEJ3Jdvss4+ULhesGgMxGX8kELFXpAkBH3zfR1TnLhusnVxD1NS0H5trK9T2o3nB9LI1gv/cVmo1eEhh4QNZlJtZ7eCzuPnrPHiChxxEXKlAunnLRTx4c";
+	// private static String priKey =
+	// "MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBALxM270FGnSDNP/z2+naSoHFyo8V9l5DzyZiRO/XxkcfIgN0EiSNcvSz4qNn8dq/4/OX659ditA4lWxUsSdqZG3iG0ofigMDYBChkHEvq0sprNjj/EpNiZrz4novUoOS5BlSpUeLzMLxTBByw8vU5FJITNfE/I/IzFC801KndA2JAgMBAAECgYEAn61xfYXRXFJTZGVP7KwfGJM45UOTi3ZnOL6GhPjufCtLdbA9HmAQxq+wli80KfMlg9EljxwM9eu10oqzO6B+Djga0gbaHxJNWSZhMOGzp40KvyG9Q0GsVPDBs3kR01axssap1OdccMwdhrZcDb4hioEjR+bn7LB4ebKmvPLOj10CQQDcWyD5ltdSv8kIk2dHuKzMt6V0S1A63Nch+xl6hZ/PU/WnZoOnkL4dfr7pnTXa+0AUmfUBUvm/5q++k/ThXXhjAkEA2sJPsi1Gp16zeKQL86eaOAEGVAvruEDcsH2gu0MBO7KNLmGyiwHTXISjw9BsQom9LcC/CUscZYtkwT0PcuiIIwJBANQJoJ5rJsGKqNDmvnBGZYkMglp4ijhJ/33EWQ0L/e6MNQsjWzZn0nkhWGYGECeqs0vfpeHjTU36lkxFpVMjFU8CQQC/KFTj6dR3pLVHknIvNCH7FkolX1VX6LXwM5cki+Sj+d6MzSprdejwS6efEJ3Jdvss4+ULhesGgMxGX8kELFXpAkBH3zfR1TnLhusnVxD1NS0H5trK9T2o3nB9LI1gv/cVmo1eEhh4QNZlJtZ7eCzuPnrPHiChxxEXKlAunnLRTx4c";
 	private static String pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8TNu9BRp0gzT/89vp2kqBxcqPFfZeQ88mYkTv18ZHHyIDdBIkjXL0s+KjZ/Hav+Pzl+ufXYrQOJVsVLEnamRt4htKH4oDA2AQoZBxL6tLKazY4/xKTYma8+J6L1KDkuQZUqVHi8zC8UwQcsPL1ORSSEzXxPyPyMxQvNNSp3QNiQIDAQAB";
 	private static String vKey = "YnVzb25saW5lLmNvbQ==";
 	@Autowired
@@ -44,7 +50,33 @@ public class TestController {
 
 	@RequestMapping("rsa")
 	public @ResponseBody Object testRSA(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response, @RequestBody String jsonParam) {
+
+		LOGGER.info("jsonParam:{}", jsonParam);
+		InputStream is = null;
+		try {
+			is = request.getInputStream();
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(is));
+			StringBuffer sb = new StringBuffer();
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line);
+			}
+			String reqBody = sb.toString();
+			LOGGER.info("阿里云截图回调.reqBody:{}", reqBody);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} finally {
+			try {
+				if (is != null) {
+					is.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
 		Map<String, String> params = new HashMap<String, String>();
 		String data = "1:operate:" + vKey;
 		try {
