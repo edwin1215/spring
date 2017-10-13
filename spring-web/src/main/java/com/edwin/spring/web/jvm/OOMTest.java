@@ -15,10 +15,14 @@ public class OOMTest {
 
 	public static void main(String[] args) {
 		OOMTest o = new OOMTest();
-		o.heapOom();
-		// o.stackOom();
+		// o.heapOom();
+		o.stackOom();
 		// o.stackSof();
 		// System.out.println(System.getProperties());
+	}
+
+	class OOMObject {
+
 	}
 
 	/**
@@ -35,13 +39,18 @@ public class OOMTest {
 		}
 	}
 
-	class OOMObject {
-
-	}
-
+	/**
+	 * -Xss2m
+	 */
 	public void stackOom() {
 		while (true) {
+			new Thread(new Runnable() {
 
+				@Override
+				public void run() {
+					doStop();
+				}
+			}).start();
 		}
 	}
 
@@ -52,7 +61,7 @@ public class OOMTest {
 	}
 
 	/**
-	 * java.lang.StackOverflowError
+	 * -Xss128k java.lang.StackOverflowError
 	 */
 	public void stackSof() {
 		stackLength++;
