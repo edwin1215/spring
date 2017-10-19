@@ -1,14 +1,14 @@
-package com.edwin.spring.web.jvm.passive;
+package com.edwin.spring.web.jvm.cloader;
 
 import java.io.InputStream;
 
 /**
- * 类加载器
+ * <被破坏双亲委派模型>
  * 
  * @author caojunming
  *
  */
-public class ClassLoaderTest {
+public class ClassLoaderWithoutParent {
 
 	public static void main(String[] args) throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException {
@@ -38,6 +38,6 @@ public class ClassLoaderTest {
 				"com.edwin.spring.web.jvm.passive.ClassLoaderTest")
 				.newInstance();
 		System.out.println(obj.getClass());
-		System.out.println(obj instanceof ClassLoaderTest);
+		System.out.println(obj instanceof ClassLoaderWithoutParent);
 	}
 }

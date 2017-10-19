@@ -1,4 +1,4 @@
-package com.edwin.spring.web.jvm.passive;
+package com.edwin.spring.web.jvm.cloader;
 
 /**
  * 类的初始化<clinit>方法
