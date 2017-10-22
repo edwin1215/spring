@@ -19,4 +19,9 @@ public class Generics {
 //		return 0;
 //	}
 
+	public static void main(String[] args) {
+		Long x = 128L;
+		Long y = 128L;
+		System.out.println(x == y);
+	}
 }
