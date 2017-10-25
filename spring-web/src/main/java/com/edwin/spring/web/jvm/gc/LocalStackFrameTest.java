@@ -3,6 +3,7 @@ package com.edwin.spring.web.jvm.gc;
 /**
  * 局部变量表GC
  * <-verbose:gc>
+ * <-XX:+PrintGCDetails>
  * 
  * @author caojunming
  */
