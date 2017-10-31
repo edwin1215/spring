@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +49,27 @@ public class TestController {
 	private static String vKey = "YnVzb25saW5lLmNvbQ==";
 	@Autowired
 	private DispatcherService dispatcherService;
+
+	@RequestMapping("code")
+	public @ResponseBody Object testUrlCode(HttpServletRequest request,
+			HttpServletResponse response, @RequestBody String jsonParam) {
+		String key = request.getParameter("key");
+		String gbkKey = null;
+		String utf8Key = null;
+		try {
+			gbkKey = URLDecoder.decode(
+					new String(key.getBytes("ISO-8859-1")), "GBK");
+			utf8Key = URLDecoder.decode(
+					new String(key.getBytes("ISO-8859-1")), "UTF-8");
+			System.out.println(gbkKey);
+			System.out.println(utf8Key);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return gbkKey;
+	}
 
 	@RequestMapping("rsa")
 	public @ResponseBody Object testRSA(HttpServletRequest request,
