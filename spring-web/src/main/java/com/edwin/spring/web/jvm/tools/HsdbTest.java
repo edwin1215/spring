@@ -9,6 +9,7 @@ public class HsdbTest {
 	static TestA a = new TestA();
 	TestA b = new TestA();
 
+	@SuppressWarnings("unused")
 	public void excute() {
 		TestA c = new TestA();
 	}
@@ -20,5 +21,6 @@ public class HsdbTest {
 }
 
 class TestA {
+	@SuppressWarnings("unused")
 	private String s = "123";
 }
