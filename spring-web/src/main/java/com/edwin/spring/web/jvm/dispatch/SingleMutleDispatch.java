@@ -8,31 +8,33 @@ package com.edwin.spring.web.jvm.dispatch;
  */
 public class SingleMutleDispatch {
 
-	static class Ferrari {
-		public String name = "Ferrari";
+	static class Car {
+
 	}
 
-	static class Lamborghini {
-		public String name = "Lamborghini";
+	static class Ferrari extends Car {
+	}
+
+	static class Lamborghini extends Car {
 	}
 
 	public static class Father {
 		public void drive(Ferrari ferrari) {
-			System.out.println("Father drive " + ferrari.name);
+			System.out.println("Father drive Ferrari");
 		}
 
 		public void drive(Lamborghini lamborghini) {
-			System.out.println("Father drive " + lamborghini.name);
+			System.out.println("Father drive Lamborghini");
 		}
 	}
 
 	public static class Son extends Father {
 		public void drive(Ferrari ferrari) {
-			System.out.println("Son drive " + ferrari.name);
+			System.out.println("Son drive Ferrari");
 		}
 
 		public void drive(Lamborghini lamborghini) {
-			System.out.println("Son drive " + lamborghini.name);
+			System.out.println("Son drive Lamborghini");
 		}
 	}
 
@@ -41,5 +43,6 @@ public class SingleMutleDispatch {
 		Father son = new Son();
 		father.drive(new Ferrari());
 		son.drive(new Lamborghini());
+		// son.drive(new Car());
 	}
 }
