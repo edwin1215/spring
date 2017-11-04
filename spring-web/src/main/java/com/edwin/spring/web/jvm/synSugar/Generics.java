@@ -1,6 +1,5 @@
 package com.edwin.spring.web.jvm.synSugar;
 
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * java泛型与类型擦除
@@ -25,7 +24,5 @@ public class Generics {
 		Long x = 128L;
 		Long y = 128L;
 		System.out.println(x == y);
-
-		AtomicInteger i = new AtomicInteger(1);
 	}
 }
