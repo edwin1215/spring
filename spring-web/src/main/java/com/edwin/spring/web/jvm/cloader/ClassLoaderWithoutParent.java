@@ -35,7 +35,7 @@ public class ClassLoaderWithoutParent {
 		};
 
 		Object obj = loader.loadClass(
-				"com.edwin.spring.web.jvm.passive.ClassLoaderTest")
+				"com.edwin.spring.web.jvm.cloader.ClassLoaderWithoutParent")
 				.newInstance();
 		System.out.println(obj.getClass());
 		System.out.println(obj instanceof ClassLoaderWithoutParent);

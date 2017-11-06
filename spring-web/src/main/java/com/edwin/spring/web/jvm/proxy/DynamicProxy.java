@@ -1,5 +1,6 @@
 package com.edwin.spring.web.jvm.proxy;
 
+import java.io.InputStream;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -25,7 +26,8 @@ public class DynamicProxy implements InvocationHandler {
 	public Object proxy(Object target) {
 		this.target = target;
 		return Proxy.newProxyInstance(target.getClass().getClassLoader(),
-				target.getClass().getInterfaces(), this);
+				target.getClass()
+				.getInterfaces(), this);
 	}
 
 	@Override
@@ -37,11 +39,31 @@ public class DynamicProxy implements InvocationHandler {
 		return invoke;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException {
 		IHello proxy = (IHello) new DynamicProxy().proxy(new Hello());
 		proxy.sayHi();
 	}
 
+}
+
+class MyClassLoader extends ClassLoader {
+	@Override
+	public Class<?> loadClass(String name) throws ClassNotFoundException {
+		try {
+			String fileName = name.substring(name.lastIndexOf('.') + 1)
+					+ ".class";
+			InputStream is = getClass().getResourceAsStream(fileName);
+			if (is == null) {
+				return super.loadClass(name);
+			}
+
+			byte[] b = new byte[is.available()];
+			is.read(b);
+			return defineClass(name, b, 0, b.length);
+		} catch (Exception e) {
+			throw new ClassNotFoundException();
+		}
+	}
 }
 
 interface IHello {

@@ -1,10 +1,9 @@
 package com.edwin.spring.web.jvm.cloader;
 
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
-
-import com.edwin.spring.web.structure.LinkStructure;
 
 /**
  * 双亲委派机制下的自定义类加载器
@@ -14,10 +13,12 @@ import com.edwin.spring.web.structure.LinkStructure;
  */
 public class ClassLoaderWithParent {
 
-	public static void main(String[] args) throws Exception {
-		System.out.println(LinkStructure.class.hashCode());
-		ClassLoader loader = new ClassLoader() {
+	public static void print() {
+		System.out.println("1234567");
+	}
 
+	public static void main(String[] args) throws Exception {
+		ClassLoader loader = new ClassLoader() {
 			@Override
 			protected Class<?> findClass(String name)
 					throws ClassNotFoundException {
@@ -35,11 +36,18 @@ public class ClassLoaderWithParent {
 				}
 			}
 		};
-		Object obj = loader.loadClass("D:\\test\\LinkStructure").newInstance();
+		Object obj = loader.loadClass(
+				"com.edwin.spring.web.jvm.cloader.ClassLoaderWithParent")
+				.newInstance();
 		System.out.println(obj.getClass().hashCode());
-		System.out.println(LinkStructure.class.hashCode());
-		System.out.println(obj.getClass().equals(LinkStructure.class));
-		System.out.println(obj instanceof LinkStructure);
+		System.out.println(ClassLoaderWithParent.class.hashCode());
+		System.out.println(obj.getClass().equals(ClassLoaderWithParent.class));
+		System.out.println(obj instanceof ClassLoaderWithParent);
+
+		Class<?> loadClass = loader
+				.loadClass("com.edwin.spring.web.jvm.cloader.ClassLoaderWithParent");
+		Method method = loadClass.getMethod("print", new Class<?>[] {});
+		method.invoke(loadClass.newInstance(), new Object[] {});
 	}
 }
 
