@@ -16,17 +16,17 @@ public class MemoryAllocationStrategy {
 	 */
 	@SuppressWarnings("unused")
 	public static void testAllocation() {
-		// byte[] allocation1 = new byte[_1MB];
-		// byte[] allocation1_1 = new byte[_1MB];
-		// byte[] allocation2 = new byte[1 * _1MB];
-		// byte[] allocation3 = new byte[1 * _1MB];
+		byte[] allocation1 = new byte[_1MB];
+		byte[] allocation1_1 = new byte[_1MB];
+		byte[] allocation2 = new byte[1 * _1MB];
+		byte[] allocation3 = new byte[1 * _1MB];
 		byte[] allocation4 = new byte[4 * _1MB];
-		try {
-			Thread.sleep(1000000000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(1000000000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	
 	/**
@@ -36,8 +36,8 @@ public class MemoryAllocationStrategy {
 	@SuppressWarnings("unused")
 	public static void testTenuringThreshold() {
 		byte[] allocation1, allocation2, allocation3;
-		allocation1 = new byte[_1MB / 4];
-		allocation2 = new byte[4 * _1MB];
+		// allocation1 = new byte[_1MB / 4];
+		allocation2 = new byte[3 * _1MB];
 		allocation3 = new byte[4 * _1MB];
 		allocation3 = null;
 		allocation3 = new byte[4 * _1MB];
