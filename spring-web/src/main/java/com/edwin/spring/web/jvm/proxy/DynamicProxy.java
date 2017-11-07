@@ -51,6 +51,12 @@ public class DynamicProxy implements InvocationHandler {
 		return invoke;
 	}
 
+	/**
+	 * -XX:+TraceClassLoading -XX:+TraceClassUnloading
+	 * 
+	 * @param args
+	 * @throws ClassNotFoundException
+	 */
 	public static void main(String[] args) throws ClassNotFoundException {
 		IHello proxy = (IHello) new DynamicProxy().proxy(new Hello(),
 				Hello.class.getClassLoader());

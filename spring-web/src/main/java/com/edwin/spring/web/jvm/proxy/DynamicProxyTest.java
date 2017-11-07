@@ -11,6 +11,12 @@ import java.lang.reflect.Method;
  */
 public class DynamicProxyTest {
 
+	/**
+	 * -XX:+TraceClassLoading -XX:+TraceClassUnloading
+	 * 
+	 * @param args
+	 * @throws Exception
+	 */
 	public static void main(String[] args) throws Exception {
 
 		// DynamicProxy newInstance = DynamicProxy.class.newInstance();
