@@ -22,6 +22,12 @@ public class DynamicProxy implements InvocationHandler {
 		System.out.println("goodbye!");
 	}
 
+	public Object proxy(Object target) {
+		this.target = target;
+		return Proxy.newProxyInstance(target.getClass().getClassLoader(),
+				target.getClass().getInterfaces(), this);
+	}
+
 	/**
 	 * 代理类要确保和被代理类使用同一类加载器
 	 * 
