@@ -46,7 +46,8 @@ public class DynamicProxy implements InvocationHandler {
 	}
 
 	public static void main(String[] args) throws ClassNotFoundException {
-		IHello proxy = (IHello) new DynamicProxy().proxy(new Hello(), null);
+		IHello proxy = (IHello) new DynamicProxy().proxy(new Hello(),
+				Hello.class.getClassLoader());
 		proxy.sayHi();
 	}
 
