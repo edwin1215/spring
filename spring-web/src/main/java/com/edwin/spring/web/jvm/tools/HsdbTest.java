@@ -14,7 +14,9 @@ public class HsdbTest {
 		TestA c = new TestA();
 	}
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
+		int[][][] arr = new int[2][2][-1];
 		HsdbTest hsdbTest = new HsdbTest();
 		hsdbTest.excute();
 	}
