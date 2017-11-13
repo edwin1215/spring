@@ -1,5 +1,6 @@
 package com.edwin.spring.web.structure;
 
+
 /**
  * 平衡二叉树
  * 
@@ -50,8 +51,9 @@ public class AVLTree<T extends Comparable<T>> {
           p = singleRotateRight(p);
         }
       }
-    } else
+    } else {
       // if exist do nothing
+    }
     // 重新计算各个结点的高度
     p.height = Math.max(height(p.left), height(p.right)) + 1;
 
@@ -118,9 +120,28 @@ public class AVLTree<T extends Comparable<T>> {
   }
 
   public int height(AVLNode<T> node) {
-    return 1;
+    if (node == null) {
+      return -1;
+    }
+    return Math.max(height(node.left), height(node.right)) + 1;
+  }
+
+  @Override
+  public String toString() {
+    return root.toString();
+  }
+
+  public static void main(String[] args) {
+    AVLTree<NodeData> avlTree = new AVLTree<>(new NodeData(2));
+    avlTree.insert(new NodeData(1));
+    avlTree.insert(new NodeData(5));
+    avlTree.insert(new NodeData(4));
+    avlTree.insert(new NodeData(9));
+    avlTree.insert(new NodeData(3));
+    System.out.println(avlTree);
   }
 }
+
 
 class AVLNode<T extends Comparable<T>> {
   public AVLNode<T> left;
@@ -173,5 +194,42 @@ class AVLNode<T extends Comparable<T>> {
 
   public void setHeight(int height) {
     this.height = height;
+  }
+
+  @Override
+  public String toString() {
+    return "[left=" + (left == null ? "" : left.toString()) + ", right="
+        + (right == null ? "" : right.toString()) + ", data="
+        + (data == null ? "" : data.toString()) + ", height=" + height + "]";
+  }
+}
+
+
+class NodeData implements Comparable<NodeData> {
+
+  private int value;
+
+  public NodeData(int value) {
+    this.value = value;
+  }
+
+  @Override
+  public int compareTo(NodeData o) {
+    if (o == null)
+      return -1;
+    return this.value - o.value;
+  }
+
+  public int getValue() {
+    return value;
+  }
+
+  public void setValue(int value) {
+    this.value = value;
+  }
+
+  @Override
+  public String toString() {
+    return "[value=" + value + "]";
   }
 }
