@@ -8,30 +8,45 @@ package com.edwin.spring.web.structure;
  */
 public class BitMap {
 
-  public static int bm = 0;
+  /**
+   * int类型4字节=32位
+   */
+  public static final int INT_MAX_BIT = 32;
+  /**
+   * 位图最大位数(表示的最大值)
+   */
+  public int maxNum;
+  /**
+   * 根据位图的最大位数/32位得到的bocket
+   */
+  public int[] bArr;
 
-  public static void set(int a) {
-    bm |= (1 << a);
-    System.out.println(Integer.toBinaryString(bm));
+  public BitMap(int maxNum) {
+    bArr = new int[maxNum / INT_MAX_BIT + 1];
+    this.maxNum = maxNum;
   }
 
-  public static int get(int a) {
-    return (bm & (1 << a)) > 0 ? 1 : 0;
+  public void set(int a) {
+    bArr[a / INT_MAX_BIT] |= (1 << a % INT_MAX_BIT);
+    System.out.println(Integer.toBinaryString(bArr[a / INT_MAX_BIT]));
+  }
+
+  public int get(int a) {
+    return (bArr[a / INT_MAX_BIT] & (1 << a % INT_MAX_BIT)) != 0 ? 1 : 0;
   }
 
   public static void main(String[] args) {
-    check();
-  }
-
-  public static void check() {
-    set(8);
-    set(4);
-    set(128);
+    int max = 10000;
+    BitMap bitMap = new BitMap(max);
+    bitMap.set(9999);
+    bitMap.set(0);
+    bitMap.set(2);
+    bitMap.set(135);
     System.out.println("-------begin-------");
-    for (int i = 0; i < 1024; i++) {
-      int j = get(i + 1);
+    for (int i = 0; i < max; i++) {
+      int j = bitMap.get(i);
       if (j > 0) {
-        System.out.println(i + 1);
+        System.out.println(i);
       }
     }
     System.out.println("-------end-------");
