@@ -11,10 +11,10 @@ import java.util.Arrays;
 public class InsertionSort {
 
   public static void main(String[] args) {
-    int[] arr = {12, 34, 45, 65, 23, 13, 48, 53, 11, 32, 12};
+    int[] arr = ShellSort.getRandomArray(20);
+    int[] arr2 = arr.clone();
     sort(arr);
     System.out.println();
-    int[] arr2 = {12, 34, 45, 65, 23, 13, 48, 53, 11, 32, 12};
     sort2(arr2);
   }
 
@@ -27,7 +27,7 @@ public class InsertionSort {
       }
       arr[j + 1] = temp;
     }
-    Arrays.stream(arr).forEach(i -> System.out.print(i + " "));
+    System.out.println("after: " + Arrays.toString(arr));
   }
 
   public static void sort2(int[] array) {
@@ -46,7 +46,7 @@ public class InsertionSort {
       array[j + 1] = temp; // 被排序数放到正确的位置
 
     }
-    Arrays.stream(array).forEach(a -> System.out.print(a + " "));
+    System.out.println("after: " + Arrays.toString(array));
   }
 
   /**
