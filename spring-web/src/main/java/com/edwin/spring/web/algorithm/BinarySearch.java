@@ -39,18 +39,18 @@ public class BinarySearch {
 
     int begin = 0;
     int end = arr.length - 1;
-    int low = begin;
-    int high = end;
+    // int low = begin;
+    // int high = end;
 
     while (begin <= end) {
       int pos = begin + (end - begin) / 2;
       System.out.println("----" + pos);
       if (arr[pos] > a) {
         end = pos - 1;
-        high = end;
+        // high = end;
       } else if (arr[pos] < a) {
         begin = pos + 1;
-        low = begin;
+        // low = begin;
       } else {
         // return pos;
       }
