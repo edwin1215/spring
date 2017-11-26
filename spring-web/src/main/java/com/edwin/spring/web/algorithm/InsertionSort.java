@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class InsertionSort {
 
   public static void main(String[] args) {
-    int[] arr = ShellSort.getRandomArray(20);
+    int[] arr = CommonUtil.getRandomArray(1000);
     int[] arr2 = arr.clone();
     sort(arr);
     System.out.println();

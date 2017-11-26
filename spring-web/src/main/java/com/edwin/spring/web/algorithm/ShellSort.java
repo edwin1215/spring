@@ -1,7 +1,6 @@
 package com.edwin.spring.web.algorithm;
 
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * 希尔排序
@@ -14,20 +13,9 @@ public class ShellSort {
   public static void main(String[] args) {
     // int[] arr = {12, 34, 45, 65, 23, 13, 48, 53, 11, 32, 12, 38, 49, 89, 9};
     // Arrays.sort(arr);
-    int[] randomArray = getRandomArray(20);
+    int[] randomArray = CommonUtil.getRandomArray(20);
     System.out.println("befor: " + Arrays.toString(randomArray));
     sort(randomArray);
-  }
-
-  public static int[] getRandomArray(int length) {
-    int[] arr = new int[length];
-    Random r = new Random();
-    // Arrays.stream(arr).map(a -> (a += r.nextInt(100)) > 50 ? a : a + 100)
-    // .forEach(System.out::println);
-    for (int i = 0; i < length; i++) {
-      arr[i] = r.nextInt(100);
-    }
-    return arr;
   }
 
   /**
