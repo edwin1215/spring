@@ -1,4 +1,4 @@
-package com.edwin.spring.web.algorithm.test;
+package com.edwin.spring.web.algorithm.pearls;
 
 public class BinarySearchTest {
 
