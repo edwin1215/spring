@@ -46,8 +46,8 @@ public class MergeSort {
   public static void sortRecursion(int[] arr, int low, int high) {
     int mid = low + (high - low) / 2;
     if (low < high) {
-      sort(arr, low, mid);
-      sort(arr, mid + 1, high);
+      sortRecursion(arr, low, mid);
+      sortRecursion(arr, mid + 1, high);
       merge(arr, low, mid, high);
     }
   }
@@ -64,11 +64,9 @@ public class MergeSort {
         tempArr[i++] = arr[rp++];
       }
     }
-
     while (lp <= mid) {
       tempArr[i++] = arr[lp++];
     }
-
     while (rp <= high) {
       tempArr[i++] = arr[rp++];
     }
