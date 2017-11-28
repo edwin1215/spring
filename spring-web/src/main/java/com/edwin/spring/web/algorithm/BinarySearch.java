@@ -64,6 +64,7 @@ public class BinarySearch {
       } else {
         low = mid;
         high = mid;
+        // 向左二分查找，查找左边界
         while (lp < low) {
           int lmid = lp + (low - lp) / 2;
           if (arr[lmid] < a) {
@@ -71,14 +72,18 @@ public class BinarySearch {
           } else if (arr[lmid] == a) {
             low = lmid;
           }
+          // 不会出现比查找值大的情况，如果出现说明数组不是有序的
         }
+        // 向右二分查找，查找右边界
         while (rp > high) {
+          // 向右查找时，二分时需要加一，否则会出现死循环
           int rmid = high + (rp - high) / 2 + 1;
           if (arr[rmid] > a) {
             rp = rmid - 1;
           } else if (arr[rmid] == a) {
             high = rmid;
           }
+          // 不会出现比查找值小的情况，如果出现说明数组不是有序的
         }
         break;
       }
