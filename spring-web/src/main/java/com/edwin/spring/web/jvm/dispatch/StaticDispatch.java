@@ -24,8 +24,10 @@ public class StaticDispatch {
 		StaticDispatch s = new StaticDispatch();
 		Person man = new Man();
 		Person woman = new Woman();
+		Woman wo = new Woman();
 		s.say(man);
 		s.say(woman);
+		s.say(wo);
 	}
 }
 
