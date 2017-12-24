@@ -8,6 +8,12 @@ package com.edwin.spring.web.jvm.cloader;
  */
 public class ClassLoaderPath {
 
+	/**
+	 * -XX:+TraceClassLoading
+	 * -XX:+TraceClassUnloading
+	 *
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		ClassLoader contextClassLoader = Thread.currentThread()
 				.getContextClassLoader();

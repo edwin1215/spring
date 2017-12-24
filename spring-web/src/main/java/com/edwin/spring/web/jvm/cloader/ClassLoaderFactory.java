@@ -3,6 +3,10 @@ package com.edwin.spring.web.jvm.cloader;
 import java.net.URL;
 import java.security.PrivilegedAction;
 
+/**
+ * -XX:+TraceClassLoading
+ * -XX:+TraceClassUnloading
+ */
 public class ClassLoaderFactory implements
 		PrivilegedAction<StandardClassLoader> {
 

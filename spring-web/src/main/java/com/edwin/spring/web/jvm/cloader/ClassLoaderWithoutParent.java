@@ -4,7 +4,9 @@ import java.io.InputStream;
 
 /**
  * <被破坏双亲委派模型>
- * 
+ * -XX:+TraceClassLoading
+ * -XX:+TraceClassUnloading
+ *
  * @author caojunming
  *
  */
