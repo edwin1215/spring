@@ -20,12 +20,16 @@ public class SinglyLinkList {
 
         SinglyLinkList sl = new SinglyLinkList();
         sl.systemOut(header);
-        header = sl.reversalList(header);
+//        header = sl.reversalList(header);
+        sl.reorderList(header);
         sl.systemOut(header);
     }
 
     /**
-     * 解题思路：用快慢指针寻找链表中间点
+     * 解题思路：
+     * 1、用快慢指针寻找链表中间点
+     * 2、将后半段链表反转
+     * 3、前后半段链表做合并
      *
      * @param head
      */
@@ -35,15 +39,35 @@ public class SinglyLinkList {
         }
         ListNode slow = head;
         ListNode fast = head;
+        // 寻找中间点
         while (fast.next != null && fast.next.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
 
-        ListNode pre = slow.next;
-        while (pre != null && pre.next != null) {
-            ListNode current = pre.next;
+        // 中间点
+        ListNode pre = slow;
+        ListNode post = slow.next;
+        while (post != null) {
+            pre.next = post.next;
+            post.next = slow;
+            slow = post;
+            post = pre.next;
+        }
 
+        // head前半段头指针
+        // slow后台段头指针
+        // 每一合并后指针后移
+        post = slow;
+        pre = head;
+        ListNode temp;
+        while (pre != null && post != null) {
+            temp = pre.next;
+            pre.next = post;
+            pre = temp;
+            temp = post.next;
+            post.next = pre;
+            post = temp;
         }
     }
 
@@ -51,12 +75,12 @@ public class SinglyLinkList {
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode pre = head; // 指针不动
-        ListNode post = head.next; // 每次后移pre.next
+        ListNode pre = head; // pre指针不动
+        ListNode post = head.next; // post每次后移pre.next
         while (post != null) {
             pre.next = post.next;
             post.next = head;
-            head = post;
+            head = post; // 每次都将head更新为头指针
             post = pre.next;
         }
         return head;
