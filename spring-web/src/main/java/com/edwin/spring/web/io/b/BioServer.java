@@ -55,7 +55,7 @@ public class BioServer extends Thread {
         System.out.println("Server: receives clientMessage->" + clientMessage);
     }
     public static void main(String[] args) {
-        BioServer server = new BioServer(1983);
+        BioServer server = new BioServer(1988);
         server.start();
     }
 }

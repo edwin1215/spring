@@ -1,6 +1,7 @@
 package com.edwin.spring.web;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.edwin.spring.web.ioc.methodDI.lookup.MagicBoss;
@@ -15,6 +16,9 @@ public class MainTest {
 	}
 
 	public static void main(String[] args) {
+
+		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
+
 		Boss1 bean = ac.getBean("boss1", Boss1.class);
 		System.out.println(bean.getCar().getBrand());
 		System.out.println("..................................");

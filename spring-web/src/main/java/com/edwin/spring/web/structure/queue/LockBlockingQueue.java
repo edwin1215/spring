@@ -1,4 +1,4 @@
-package com.edwin.spring.web.queue.blocking;
+package com.edwin.spring.web.structure.queue;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -69,23 +69,20 @@ public class LockBlockingQueue<T> {
 	}
 
 	public static void main(String[] args) {
-		final LockBlockingQueue<String> queue = new LockBlockingQueue<String>();
+		final LockBlockingQueue<String> queue = new LockBlockingQueue<>();
 		System.out.println(Thread.currentThread() + "," + queue);
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(1000);
-					System.out.println(Thread.currentThread() + "," + queue);
-					queue.bpush("xx");
-					queue.bpush("yy");
-					queue.bpush("zz");
-					queue.bpush("zz");
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}).start();
+		new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+                System.out.println(Thread.currentThread() + "," + queue);
+                queue.bpush("xx");
+                queue.bpush("yy");
+                queue.bpush("zz");
+                queue.bpush("zz");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
 		System.out.println(queue.bpoll());
 	}
 }

@@ -1,4 +1,4 @@
-package com.edwin.spring.web.jvm;
+package com.edwin.spring.web.jvm.oom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,13 +47,7 @@ public class OOMTest {
 		while (true) {
 			counter++;
 			System.out.println(counter);
-			new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					doStop();
-				}
-			}).start();
+			new Thread(() -> doStop()).start();
 		}
 	}
 

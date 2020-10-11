@@ -59,21 +59,9 @@ public class SyncMethodTest {
         // }  
         final SyncMethodTest t1 = new SyncMethodTest();
         final SyncMethodTest t2 = new SyncMethodTest();
-        new Thread(new Runnable() {
+        new Thread(() -> t1.testSyncOnStaticMethod()).start();
 
-            @Override
-            public void run() {
-                t1.testSyncOnStaticMethod();
-            }
-        }).start();
-
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                t1.testSyncOnStaticMethod();
-            }
-        }).start();
+        new Thread(() -> t1.testSyncOnStaticMethod()).start();
     }
 
     public static void case2() {
@@ -91,25 +79,26 @@ public class SyncMethodTest {
         //     synchronized (SyncMethodTest.class) {  
         //     }  
         // }  
-        new Thread(new Runnable() {
+        new Thread(SyncMethodTest::testSyncOnClass).start();
 
-            @Override
-            public void run() {
-                SyncMethodTest.testSyncOnClass();
-            }
-        }).start();
-
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                SyncMethodTest.testSyncOnStaticMethod();
-            }
-        }).start();
+        new Thread(SyncMethodTest::testSyncOnStaticMethod).start();
     }
 
-    public static void main(String[] args) {
-        case1();
+    public static void main(String[] args) throws InterruptedException {
+//        case1();
        // case2();
+
+        Object lock = new Object();
+        synchronized (lock) {
+            System.out.println("enter");
+            lock.wait();
+            System.out.println("wait");
+            lock.notify();
+            System.out.println("notify");
+
+
+        }
+
+
     }
 }

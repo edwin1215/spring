@@ -20,6 +20,10 @@ public class ClassLoaderWithoutParent {
 			public Class<?> loadClass(String name)
 					throws ClassNotFoundException {
 				try {
+//					Class<?> aClass = loadClass(name, false);
+//					if (aClass != null) {
+//						return aClass;
+//					}
 					String fileName = name.substring(name.lastIndexOf('.') + 1)
 							+ ".class";
 					InputStream is = getClass().getResourceAsStream(fileName);
@@ -36,6 +40,7 @@ public class ClassLoaderWithoutParent {
 			}
 		};
 
+		System.out.println(loader.getParent());
 		Object obj = loader.loadClass(
 				"com.edwin.spring.web.jvm.cloader.ClassLoaderWithoutParent")
 				.newInstance();

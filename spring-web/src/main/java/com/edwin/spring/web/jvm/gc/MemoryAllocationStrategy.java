@@ -13,20 +13,26 @@ public class MemoryAllocationStrategy {
 	/**
 	 * VM：-verbose:gc -Xms20m -Xmx20m -Xmn10m -XX:+PrintGCDetails -XX:SurvivorRatio=8
 	 * -XX:PretenureSizeThreshold=3145728
+	 * -XX:+UseSerialGC
+	 * -XX:+UseConcMarkSweepGC
 	 */
 	@SuppressWarnings("unused")
 	public static void testAllocation() {
-		byte[] allocation1 = new byte[_1MB];
-		byte[] allocation1_1 = new byte[_1MB];
-		byte[] allocation2 = new byte[1 * _1MB];
-		byte[] allocation3 = new byte[1 * _1MB];
-		byte[] allocation4 = new byte[4 * _1MB];
+//		byte[] allocation1 = new byte[2 * _1MB];
+//		byte[] allocation2 = new byte[2 * _1MB];
+//		byte[] allocation3 = new byte[2 * _1MB];
+//		byte[] allocation35 = new byte[2 * _1MB];
+//		byte[] allocation4 = new byte[4 * _1MB];
+		byte[] allocation1_1 = new byte[9 * _1MB];
 //		try {
 //			Thread.sleep(1000000000);
 //		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+//		System.out.println(allocation1);
+//		System.out.println(allocation2);
+//		System.out.println(allocation3);
+//		System.out.println(allocation4);
 	}
 	
 	/**
@@ -46,7 +52,7 @@ public class MemoryAllocationStrategy {
 	}
 
 	public static void main(String[] args) {
-		// testAllocation();
-		testTenuringThreshold();
+		 testAllocation();
+//		testTenuringThreshold();
 	}
 }

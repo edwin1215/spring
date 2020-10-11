@@ -26,16 +26,17 @@ public class Reactor implements Runnable{
             try {
                 while (!Thread.interrupted()) {
                     selector.select();
-                    Set selected = selector.selectedKeys();
-                    Iterator it = selected.iterator();
-                    while (it.hasNext())
-                        dispatch((SelectionKey)(it.next())); //Reactor负责dispatch收到的事件
-                    selected.clear();
+                    Set<SelectionKey> selected = selector.selectedKeys();
+                    Iterator<SelectionKey> it = selected.iterator();
+                    while (it.hasNext()) {
+                        dispatch(it.next()); //Reactor负责dispatch收到的事件
+                        it.remove();
+                    }
                 }
             } catch (IOException ex) { /* ... */ }
         }
 
-        void dispatch(SelectionKey k) {
+        private void dispatch(SelectionKey k) {
             Runnable r = (Runnable)(k.attachment()); //调用之前注册的callback对象
             if (r != null)
                 r.run();

@@ -1,6 +1,7 @@
 package com.edwin.spring.web.algorithm.leetcode;
 
 import com.alibaba.fastjson.JSON;
+import com.edwin.spring.web.algorithm.TreeNode;
 
 import java.util.*;
 
@@ -130,14 +131,106 @@ public class DPExcutor {
         }
     }
 
+    public boolean find(int [][] array, int target) {
+        if (array == null || array.length <= 0 || array[0].length <= 0) {
+            return false;
+        }
+        int height = array.length, width = array[0].length;
+        int hPoi = 0, wPoi = width - 1;
+        while (hPoi < height && wPoi >= 0) {
+            int num = array[hPoi][wPoi];
+            if (num == target) {
+                return true;
+            } else if (num < target) {
+                hPoi++;
+            } else {
+                wPoi--;
+            }
+        }
+        return false;
+    }
+
+    public String replaceSpace(StringBuffer str) {
+        if (str == null) {
+            return "";
+        }
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < str.length(); i ++) {
+            if (str.charAt(i) == ' ') {
+                builder.append("%20");
+            } else {
+                builder.append(str.charAt(i));
+            }
+        }
+        return builder.toString();
+    }
+
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        if (preorder == null || inorder == null
+                || preorder.length <= 0 || inorder.length <= 0
+                || preorder.length != inorder.length) {
+            return null;
+        }
+        TreeNode root = new TreeNode(preorder[0]);
+        Stack<TreeNode> st = new Stack<>();
+        st.push(root);
+        int inIdx = 0;
+        for (int i = 1; i < preorder.length; i ++) {
+            TreeNode temp = st.peek();
+            if (temp.val != inorder[inIdx]) {
+                temp.left = new TreeNode(preorder[i]);
+                st.push(temp.left);
+            } else {
+                while (!st.isEmpty() && st.peek().val == inorder[inIdx]) {
+                    temp = st.pop();
+                    inIdx ++;
+                }
+                temp.right = new TreeNode(preorder[i]);
+                st.push(temp.right);
+            }
+        }
+        return root;
+    }
+
+    public TreeNode reConstructBinaryTree(int [] pre,int [] in) {
+        if (pre == null || in == null
+                || pre.length <= 0 || in.length <= 0
+                || pre.length != in.length) {
+            return null;
+        }
+        TreeNode root = new TreeNode(pre[0]);
+        Stack<TreeNode> st = new Stack<>();
+        st.push(root);
+        int inIdx = 0;
+        for (int i = 1; i < pre.length; i ++) {
+            TreeNode temp = st.peek();
+            if (temp.val != in[inIdx]) {
+                temp.left = new TreeNode(pre[i]);
+                st.push(temp.left);
+            } else {
+                while (!st.isEmpty() && st.peek().val == in[inIdx]) {
+                    temp = st.pop();
+                    inIdx ++;
+                }
+                temp.right = new TreeNode(pre[i]);
+                st.push(temp.right);
+            }
+        }
+        return root;
+    }
+
     public static void main(String[] args) {
         DPExcutor e = new DPExcutor();
-//        e.numWays(4);
+//        e.numWays(4);*.iml
 //        System.out.println(e.maxSubArray(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
 
-        e.bfs(buildBfs(), "A");
-        System.out.println("----------");
-        e.dfs(buildBfs(), "A");
+//        e.bfs(buildBfs(), "A");
+//        System.out.println("----------");
+//        e.dfs(buildBfs(), "A");
 
+//        System.out.println(e.replaceSpace(new StringBuffer("we are winner")));
+        System.out.println(JSON.toJSONString(e.buildTree(new int[]{1, 4, 7, 9, 10, 8, 6, 5, 3, 2}, new int[]{9, 7, 4, 8, 10, 6, 1, 3, 2, 5})));
+        DPExcutor excutor = new DPExcutor();
+        System.out.println("");
     }
 }
