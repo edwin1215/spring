@@ -21,7 +21,7 @@ public class LockInterruptiblyTest {
             try {
                 TimeUnit.SECONDS.sleep(100);
             } catch (InterruptedException e) {
-                PrintUtils.sys("InterruptedException");
+                PrintUtils.error("InterruptedException");
             }
             PrintUtils.sys("Exiting SleepBlocked.run()");
 
@@ -53,10 +53,15 @@ public class LockInterruptiblyTest {
 
     static class RunnableBlocked implements Runnable {
         static void f() {
-            while (true) {
-                PrintUtils.sys("isInterrupt:" + Thread.currentThread().isInterrupted());
+            Thread t = Thread.currentThread();
+            while (!t.isInterrupted()) {
+
                 Thread.yield();
             }
+            PrintUtils.sys("t.isInterrupted():" + t.isInterrupted());
+            PrintUtils.sys("Thread.interrupted():" + Thread.interrupted());
+            PrintUtils.sys("Thread.interrupted():" + Thread.interrupted());
+            PrintUtils.sys("t.isInterrupted():" + t.isInterrupted());
         }
 
         @Override
@@ -69,10 +74,12 @@ public class LockInterruptiblyTest {
 
     static void interrupt(Runnable r) throws InterruptedException {
         Future<?> f = exec.submit(r);
-        TimeUnit.MILLISECONDS.sleep(100);
+        TimeUnit.MILLISECONDS.sleep(1000);
         PrintUtils.sys("interrupting " + r.getClass().getSimpleName());
+        // t.interrupt();
         PrintUtils.sys(r.getClass().getSimpleName() + " cancel result " + f.cancel(true));
         PrintUtils.sys("interrupt sent to " + r.getClass().getSimpleName());
+        exec.shutdown();
     }
 
     public static void main(String[] args) throws InterruptedException {

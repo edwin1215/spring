@@ -2,6 +2,7 @@ package com.edwin.spring.web.concurrent;
 
 import com.edwin.spring.web.tools.PrintUtils;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 
 /**
@@ -13,7 +14,7 @@ import java.util.concurrent.locks.LockSupport;
  */
 public class ThreadInterruptTest {
 
-    public static void main(String[] args) throws InterruptedException {
+    private static void test1() throws InterruptedException {
         Thread thread = new Thread(() -> {
             PrintUtils.sys("enter");
             LockSupport.parkUntil(System.currentTimeMillis() + 5000);
@@ -40,7 +41,24 @@ public class ThreadInterruptTest {
 
 
         PrintUtils.sys("main end");
+    }
 
+    private static void interruptTest() throws InterruptedException {
+        Thread t = new Thread(() -> {
+
+
+        }, "interrupt-test-thread");
+
+        t.start();
+        TimeUnit.SECONDS.sleep(1);
+        t.interrupt();
+        t.isInterrupted();
+        Thread.interrupted();
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        test1();
+        interruptTest();
     }
 
     private static boolean interrupt() {

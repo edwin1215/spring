@@ -13,12 +13,12 @@ import java.util.Arrays;
 public class QuickSort {
 
   public static void main(String[] args) {
-    int[] randomArray = CommonUtil.getRandomArray(20, 100);
+    int[] randomArray = CommonUtil.getRandomArray(6, 100);
     System.out.println("start");
     System.out.println("before: " + Arrays.toString(randomArray));
     long sTime = System.currentTimeMillis();
     System.out.println(sTime);
-    qsort3(randomArray, 0, randomArray.length - 1);
+    qsort4(randomArray, 0, randomArray.length - 1);
     long eTime = System.currentTimeMillis();
     System.out.println(eTime);
     System.out.println("cost:" + (eTime - sTime));
@@ -51,7 +51,7 @@ public class QuickSort {
     }
     qsort1(arr, low, m - 1);
     qsort1(arr, m + 1, high);
-    // System.out.println("after: " + Arrays.toString(arr));
+     System.out.println("after: " + Arrays.toString(arr));
   }
 
   /**
@@ -130,8 +130,8 @@ public class QuickSort {
     }
 
     CommonUtil.bitSwap(arr, low, rp);
-    qsort3(arr, low, rp - 1);
-    qsort3(arr, rp + 1, high);
+    qsort4(arr, low, rp - 1);
+    qsort4(arr, rp + 1, high);
     System.out.println("after: " + Arrays.toString(arr));
   }
 }

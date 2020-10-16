@@ -2,9 +2,14 @@ package com.edwin.spring.web.io.n;
 
 import com.edwin.spring.web.tools.PrintUtils;
 
+import java.io.DataInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+import java.nio.channels.FileChannel;
 import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +51,14 @@ public class NioClient {
                         // 发送请求
                         ByteBuffer buffer = ByteBuffer.wrap(next.getBytes());
                         sc.write(buffer);
-
+                        // sendfile
+//                        FileChannel fileChannel = new FileInputStream("").getChannel();
+//                        fileChannel.transferTo(0, fileChannel.size(), socketChannel);
+                        // mmap
+//                        IntBuffer intBuffer = fileChannel.map(FileChannel.MapMode.READ_WRITE, 0, fileChannel.size()).asIntBuffer();
+//                        for (int i = 0; i < fileChannel.size(); i++) {
+//                            intBuffer.put(i);
+//                        }
                         // 读取响应
                         ByteBuffer readBuffer = ByteBuffer.allocate(1024);
                         int num;

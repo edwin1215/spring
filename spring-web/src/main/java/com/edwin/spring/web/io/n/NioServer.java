@@ -30,7 +30,6 @@ public class NioServer {
             // 注册select事件，事件类型accept，处理所有客户端建立连接的请求
             channel.register(selector, SelectionKey.OP_ACCEPT);
             System.out.println("accept监听注册完成");
-
             for (;;) {
                 // 等待select事件触发
                 int readyChannels = selector.select();

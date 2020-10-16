@@ -7,7 +7,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class LockTest {
 
-    Lock lock = new ReentrantLock();
+    ReentrantLock lock = new ReentrantLock();
     Condition c1 = lock.newCondition();
     Condition c2 = lock.newCondition();
 
@@ -66,6 +66,8 @@ public class LockTest {
         lock.readLock().unlock();
 
     }
+
+
 
 
 }
