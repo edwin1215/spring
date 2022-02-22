@@ -22,5 +22,6 @@
 		<netty.version>5.0.0.Alpha1</netty.version>
 		<websocket.version>1.0</websocket.version>
 		<lombok.version>1.18.12</lombok.version>
+		<javax.servlet-api.version>4.0.1</javax.servlet-api.version>
 	</properties>
 </project>

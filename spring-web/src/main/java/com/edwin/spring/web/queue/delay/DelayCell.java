@@ -13,6 +13,9 @@ import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
 /**
  * 延时队列元素
+ *
+ * @author edwin
+ * @date 2021/12/4 6:08 下午
  */
 @Getter
 @Setter
@@ -28,15 +31,15 @@ public class DelayCell<T> implements Delayed {
     private final long period;
 
     public DelayCell(T cell,  long timestamp) {
-        this.cell = cell;
-        this.timestamp = timestamp;
-        this.sequenceNumber = 0L;
-        this.period = 0L;
+        this(cell, timestamp, 0L, 0L);
+    }
+
+    public DelayCell(T cell,  long timestamp, long sequenceNumber) {
+        this(cell, timestamp, sequenceNumber, 0L);
     }
 
     public DelayCell() {
-        this.sequenceNumber = 0L;
-        this.period = 0L;
+        this(null, 0L, 0L, 0L);
     }
 
     @Override
