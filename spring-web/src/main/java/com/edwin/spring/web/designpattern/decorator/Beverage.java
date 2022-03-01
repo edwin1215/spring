@@ -1,7 +1,5 @@
-package com.edwin.spring.web.design.decorator;
+package com.edwin.spring.web.designpattern.decorator;
 
-
-import java.math.BigDecimal;
 
 /**
  * 饮料基类

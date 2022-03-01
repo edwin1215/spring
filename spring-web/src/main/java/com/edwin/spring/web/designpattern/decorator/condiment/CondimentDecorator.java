@@ -1,6 +1,6 @@
-package com.edwin.spring.web.design.decorator.condiment;
+package com.edwin.spring.web.designpattern.decorator.condiment;
 
-import com.edwin.spring.web.design.decorator.Beverage;
+import com.edwin.spring.web.designpattern.decorator.Beverage;
 
 /**
  * 调料装饰者基类

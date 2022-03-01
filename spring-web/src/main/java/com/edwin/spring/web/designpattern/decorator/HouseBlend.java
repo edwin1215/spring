@@ -1,24 +1,24 @@
-package com.edwin.spring.web.design.decorator;
+package com.edwin.spring.web.designpattern.decorator;
 
 /**
- * 浓缩咖啡
+ * 黑咖啡（混合咖啡）
  *
  * @author junming.cao
  * @date 2022/3/1 11:10 下午
  */
-public class Espresso extends Beverage {
+public class HouseBlend extends Beverage {
 
     @Override
     public String getDescription() {
-        return "浓缩咖啡";
+        return "黑咖啡";
     }
 
     /**
-     * 1.99 元 / 杯
+     * 0.89 元 / 杯
      * @return 价格
      */
     @Override
     public double cost() {
-        return 1.99D;
+        return 0.89D;
     }
 }

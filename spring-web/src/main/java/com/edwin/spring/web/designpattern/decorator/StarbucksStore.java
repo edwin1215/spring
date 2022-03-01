@@ -1,8 +1,8 @@
-package com.edwin.spring.web.design.decorator;
+package com.edwin.spring.web.designpattern.decorator;
 
-import com.edwin.spring.web.design.decorator.condiment.CaramelCondiment;
-import com.edwin.spring.web.design.decorator.condiment.MilkCondiment;
-import com.edwin.spring.web.design.decorator.condiment.VanillaCondiment;
+import com.edwin.spring.web.designpattern.decorator.condiment.CaramelCondiment;
+import com.edwin.spring.web.designpattern.decorator.condiment.MilkCondiment;
+import com.edwin.spring.web.designpattern.decorator.condiment.VanillaCondiment;
 import com.edwin.spring.web.utils.DoraemonKit;
 import lombok.extern.slf4j.Slf4j;
 
