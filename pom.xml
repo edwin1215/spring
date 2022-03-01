@@ -21,5 +21,11 @@
 		<dubbo.version>2.5.3</dubbo.version>
 		<netty.version>5.0.0.Alpha1</netty.version>
 		<websocket.version>1.0</websocket.version>
+		<lombok.version>1.18.12</lombok.version>
+		<javax.servlet-api.version>4.0.1</javax.servlet-api.version>
+		<reactor-core.version>3.4.8</reactor-core.version>
+		<io.vavr.version>0.10.3</io.vavr.version>
+		<commons-lang3.version>3.11</commons-lang3.version>
+		<commons-collections4.version>4.4</commons-collections4.version>
 	</properties>
 </project>
