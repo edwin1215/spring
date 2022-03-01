@@ -1,9 +1,6 @@
 package com.edwin.spring.web.concurrent;
 
-import sun.misc.Unsafe;
-
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
 /**
  *

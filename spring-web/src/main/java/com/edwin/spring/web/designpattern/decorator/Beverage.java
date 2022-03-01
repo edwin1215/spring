@@ -1,11 +1,10 @@
 package com.edwin.spring.web.designpattern.decorator;
 
-
 /**
  * 饮料基类
  *
  * @author junming.cao
- * @date 2022/3/1 11:05 下午
+ * @date 2022/3/1 11:56 下午
  */
 public abstract class Beverage {
 
