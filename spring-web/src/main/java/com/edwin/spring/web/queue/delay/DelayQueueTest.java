@@ -1,10 +1,10 @@
 package com.edwin.spring.web.queue.delay;
 
 import com.alibaba.fastjson.JSON;
+import com.edwin.spring.web.utils.DoraemonKit;
 import com.edwin.spring.web.utils.PrintUtil;
 
 import java.util.concurrent.DelayQueue;
-import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -42,7 +42,7 @@ public class DelayQueueTest {
 
 
     private static DelayCell<BusinessCell> createDelayCell(int id) {
-        int delayTime = PrintUtil.getRandomNumNoZero(5, 1000);
+        int delayTime = DoraemonKit.getRandomNumNoZero(5, 1000);
         PrintUtil.printTime("currentId:" + id + ", delayTime:" + delayTime);
         return new DelayCell<>(new BusinessCell(id, "name-" + id, 1), delayTime + System.currentTimeMillis(), id);
     }
