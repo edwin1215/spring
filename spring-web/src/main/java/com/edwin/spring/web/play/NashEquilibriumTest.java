@@ -35,11 +35,19 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class NashEquilibriumTest {
 
     public static void main(String[] args) {
-        Player player1 = new Player(new Role(2, 1));
-        Player player2 = new Player(new Role(8, 3));
-        new Gamble(player1, player2).startGame(800);
+        Player player1 = new Player("马云", 100, new Role(2, 1));
+        Player player2 = new Player("张一鸣", 100, new Role(8, 3));
+        Gamble gamble = new Gamble(player1, player2);
+        gamble.startGame(800);
+        gamble.result();
     }
 
+    /**
+     * 赌局
+     *
+     * @author junming.cao
+     * @date 2022/3/2 1:25 上午
+     */
     static class Gamble {
 
         private static final Map<Integer, Pair<Integer, Integer>> ROLE_MAP;
@@ -68,6 +76,7 @@ public class NashEquilibriumTest {
 
 
         public void startGame(int times) {
+            log.info("『{}』和『{}』开启赌局，一共进行 {} 次游戏 ...", one.name(), two.name(), times);
             for (int i = 0; i < times; i++) {
                 int oneToss = one.toss();
                 int twoToss = two.toss();
@@ -75,23 +84,46 @@ public class NashEquilibriumTest {
                 one.trade(ROLE_MAP.get(result).getLeft());
                 two.trade(ROLE_MAP.get(result).getRight());
             }
-            log.info("玩家 1 余额:{}，玩家 2 余额:{}", one.balance(), two.balance());
-            log.info("玩家 1 情况:{}", one.watch());
-            log.info("玩家 2 情况:{}", two.watch());
+        }
+
+        public void result() {
+            int oneBalance = one.balance();
+            int twoBalance = two.balance();
+            log.info("------------- FINAL -------------");
+            log.info("最终结果：");
+            log.info("『{}』游戏情况:{}", one.name(), one.watch());
+            log.info("『{}』游戏情况:{}", two.name(), two.watch());
+            log.info("『{}』余额:{}，『{}』余额:{}", one.name(), oneBalance, two.name(), twoBalance);
+            int diffMoney = oneBalance - twoBalance;
+            String result = diffMoney == 0 ? "平局" : (diffMoney > 0 ? one.name : two.name);
+            log.info("最终胜利的是『{}』，总共赢了 {} 元钱。", result, Math.abs(diffMoney / 2));
         }
     }
 
+    /**
+     * 赌徒
+     */
     static abstract class AbsPlayer {
-        private int money = 100;
+        private final String name;
+        private int balance;
+
+        public AbsPlayer(String name, int balance) {
+            this.name = name;
+            this.balance = balance;
+        }
 
         public abstract int toss();
 
         public void trade(int money) {
-            this.money += money;
+            this.balance += money;
         }
 
         public int balance() {
-            return this.money;
+            return this.balance;
+        }
+
+        public String name() {
+            return this.name;
         }
 
         public abstract String watch();
@@ -101,7 +133,8 @@ public class NashEquilibriumTest {
         private final ChoiceStrategy strategy;
         private final Pair<AtomicInteger, AtomicInteger> watcher = Pair.of(new AtomicInteger(), new AtomicInteger());
 
-        public Player(Role role) {
+        public Player(String name, int money, Role role) {
+            super(name, money);
             strategy = new RandomChoice(role);
         }
 
