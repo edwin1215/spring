@@ -22,11 +22,11 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class PressureTest {
     private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(4, 4, 60,
-            TimeUnit.SECONDS, new LinkedBlockingQueue<>(100),
+            TimeUnit.SECONDS, new LinkedBlockingQueue<>(10000),
             new ThreadFactoryBuilder().setNameFormat("pressure-test-thread-%d").build());
 
     private static void test() {
-        Flux.interval(Duration.ofMillis(100))
+        Flux.interval(Duration.ofMillis(1))
                 .subscribeOn(Schedulers.fromExecutor(EXECUTOR))
                 .subscribe(new Subscriber<Long>() {
                     Subscription subscription;
@@ -68,6 +68,6 @@ public class PressureTest {
     }
 
     public static void main(String[] args) {
-        test2();
+        test();
     }
 }
